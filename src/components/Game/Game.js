@@ -14,9 +14,9 @@ console.info({ answer });
 
 function Game() {
   const [guessList, setGuessList] = React.useState([]);
-  function updateGuessList(value) {
+  function updateGuessList(guess) {
     if (guessList.length < NUM_OF_GUESSES_ALLOWED) {
-      setGuessList(value);
+      setGuessList([...guessList, guess]);
     }
   }
 
@@ -27,7 +27,6 @@ function Game() {
     <div>
       <GuessViewer guessList={guessList} answer={answer} />
       <Field
-        guessList={guessList}
         updateGuessList={updateGuessList}
         disabled={isWon || isLost}
       />

@@ -1,6 +1,6 @@
 import React from "react";
 
-function Field({ guessList, updateGuessList, disabled }) {
+function Field({ updateGuessList, disabled }) {
   const [guess, setGuess] = React.useState("");
 
   return (
@@ -9,8 +9,8 @@ function Field({ guessList, updateGuessList, disabled }) {
       onSubmit={(e) => {
         e.preventDefault();
         console.info({ guess });
+        updateGuessList(guess);
         setGuess("");
-        updateGuessList([...guessList, guess]);
       }}
     >
       <label htmlFor="guess-input">Enter guess:</label>
