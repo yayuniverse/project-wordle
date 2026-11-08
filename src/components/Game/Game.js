@@ -1,7 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import { sample } from '../../utils';
-import { WORDS } from '../../data';
+import { sample } from "../../utils";
+import { WORDS } from "../../data";
+import Field from "./Field";
+import GuessViewer from "./GuessViewer";
+import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
+import Banner from "./banner";
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -9,7 +13,30 @@ const answer = sample(WORDS);
 console.info({ answer });
 
 function Game() {
-  return <>Put a game here!</>;
+  const [guessList, setGuessList] = React.useState([]);
+  function updateGuessList(value) {
+    if (guessList.length < NUM_OF_GUESSES_ALLOWED) {
+      setGuessList(value);
+    }
+  }
+
+  const isWon = [...guessList].pop() === answer;
+  const isLost = !isWon && guessList.length >= NUM_OF_GUESSES_ALLOWED;
+
+  return (
+    <div>
+      <GuessViewer guessList={guessList} answer={answer} />
+      <Field
+        guessList={guessList}
+        updateGuessList={updateGuessList}
+        disabled={isWon || isLost}
+      />
+      {isWon && (
+        <Banner type={"win"} answer={answer} numOfGuesses={guessList.length} />
+      )}
+      {isLost && <Banner type={"lose"} answer={answer} />}
+    </div>
+  );
 }
 
 export default Game;
