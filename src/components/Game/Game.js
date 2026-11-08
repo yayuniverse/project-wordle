@@ -5,7 +5,7 @@ import { WORDS } from "../../data";
 import Field from "./Field";
 import GuessViewer from "./GuessViewer";
 import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
-import Banner from "./banner";
+import Banner from "./Banner";
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
